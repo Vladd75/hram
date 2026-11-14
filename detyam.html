@@ -55,9 +55,9 @@ footer { margin-top: 36px; color: var(--muted); font-size: 12px; text-align: cen
   // файлы лежат на Азбуке веры (azbyka.ru, «Православное аудио»), у нас копий нет
   var BASE = 'https://media.azbyka.ru/audio/Detjam/litvak/hristianskoe-vospitanie-detej%20/';
   var TRACKS = [
+    { t: 'Детство и юность святого мученика Трифона', f: BASE + '18_detstvo_i_yunostj_sv.mch.trifona.mp3', d: '87 мин' },
     { t: 'Сказание о Казанской иконе Богородицы', f: BASE + '26_skazanie_o_kazanskoy_ikone.mp3', d: '28 мин' },
     { t: 'Сказание о Владимирской иконе Богородицы', f: BASE + '11_skazanie_o_vladimirskoy_ikone.mp3', d: '41 мин' },
-    { t: 'Детство и юность святого мученика Трифона', f: BASE + '18_detstvo_i_yunostj_sv.mch.trifona.mp3', d: '87 мин' },
     { t: 'Детство святого преподобного Сергия Радонежского', f: BASE + '19_detstvo_sv.prp.sergiya_radonezhskogo.mp3', d: '68 мин' }
   ];
   var a = document.getElementById('a'), now = document.getElementById('now');
@@ -66,14 +66,14 @@ footer { margin-top: 36px; color: var(--muted); font-size: 12px; text-align: cen
   function get(k, d) { try { var v = localStorage.getItem(k); return v === null ? d : v; } catch (e) { return d; } }
   function put(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
 
-  var speed = parseFloat(get('hramSpeed', '1')) || 1, cur = parseInt(get('hramTrack', '0'), 10) || 0;
+  var speed = parseFloat(get('hramSpeed', '1')) || 1, cur = parseInt(get('hramTrack2', '0'), 10) || 0;
   if (cur < 0 || cur >= TRACKS.length) cur = 0;
 
   function mark(box, test) {
     [].forEach.call(box.children, function (b) { b.classList.toggle('on', test(b)); });
   }
   function load(i, play) {
-    cur = i; put('hramTrack', i);
+    cur = i; put('hramTrack2', i);
     a.src = TRACKS[i].f; a.playbackRate = speed;
     now.textContent = TRACKS[i].t;
     mark(list, function (b) { return b.dataset.i == i; });
