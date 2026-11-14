@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Детям — аудиокниги</title>
+<style>
+:root { --bg: #faf8f4; --fg: #1f1c17; --muted: #7a7266; --accent: #8a5a2b; --line: #e4ddd0; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #171512; --fg: #ece6da; --muted: #a89d8a; --accent: #d6a35c; --line: #37322a; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg);
+  font-family: -apple-system, "Segoe UI", Roboto, system-ui, sans-serif; font-size: 19px; line-height: 1.5; }
+main { max-width: 680px; margin: 0 auto; padding: 32px 20px 60px; }
+a.back { color: var(--accent); text-decoration: none; font-size: 16px; }
+h1 { font-size: 24px; margin: 14px 0 4px; }
+.sub { color: var(--muted); font-size: 15px; margin: 0 0 20px; }
+.now { font-size: 17px; font-weight: 600; margin: 0 0 8px; }
+audio { width: 100%; margin: 0 0 12px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0 0 10px; }
+.row .lbl { color: var(--muted); font-size: 14px; min-width: 74px; }
+button { padding: 6px 14px; border-radius: 8px; font-size: 15px; border: 1px solid var(--line);
+  background: transparent; color: var(--accent); cursor: pointer; }
+button.on { background: var(--accent); color: var(--bg); }
+#left { color: var(--muted); font-size: 14px; }
+ol { list-style: none; padding: 0; margin: 22px 0 0; }
+ol li { margin: 0 0 10px; }
+.dl { display: inline-block; margin: 4px 0 0 4px; font-size: 14px; color: var(--accent); text-decoration: none; }
+ol button { width: 100%; text-align: left; padding: 12px 14px; font-size: 17px; color: var(--fg); }
+ol button.on { color: var(--bg); }
+ol small { display: block; color: var(--muted); font-size: 13px; }
+ol button.on small { color: var(--bg); opacity: .85; }
+footer { margin-top: 36px; color: var(--muted); font-size: 12px; text-align: center; }
+</style>
+</head>
+<body>
+<main>
+<a class="back" href="./">← Храм Богоявления Господня</a>
+<h1>Аудиокниги для детей</h1>
+<p class="sub">Серия «Добрым детям»: жития и сказания о святынях</p>
+
+<p class="now" id="now"></p>
+<audio id="a" controls preload="none"></audio>
+
+<div class="row"><span class="lbl">Скорость</span><span id="sp"></span></div>
+<div class="row"><span class="lbl">Таймер сна</span><span id="tm"></span><span id="left"></span></div>
+
+<ol id="list"></ol>
+<p class="sub" style="margin-top:22px">Записи хранятся на сайте «Православное аудио» (Азбука веры). «Скачать» открывает файл — на телефоне нажмите и удерживайте, затем «Сохранить»; на компьютере — правый клик → «Сохранить как».</p>
+<footer>Материалы публикуются в ознакомительных целях.</footer>
+</main>
+<script>
+(function () {
+  // файлы лежат на Азбуке веры (azbyka.ru, «Православное аудио»), у нас копий нет
+  var BASE = 'https://media.azbyka.ru/audio/Detjam/litvak/hristianskoe-vospitanie-detej%20/';
+  var TRACKS = [
+    { t: 'Сказание о Казанской иконе Богородицы', f: BASE + '26_skazanie_o_kazanskoy_ikone.mp3', d: '28 мин' },
+    { t: 'Сказание о Владимирской иконе Богородицы', f: BASE + '11_skazanie_o_vladimirskoy_ikone.mp3', d: '41 мин' },
+    { t: 'Детство и юность святого мученика Трифона', f: BASE + '18_detstvo_i_yunostj_sv.mch.trifona.mp3', d: '87 мин' },
+    { t: 'Детство святого преподобного Сергия Радонежского', f: BASE + '19_detstvo_sv.prp.sergiya_radonezhskogo.mp3', d: '68 мин' }
+  ];
+  var a = document.getElementById('a'), now = document.getElementById('now');
+  var list = document.getElementById('list'), spBox = document.getElementById('sp');
+  var tmBox = document.getElementById('tm'), left = document.getElementById('left');
+  function get(k, d) { try { var v = localStorage.getItem(k); return v === null ? d : v; } catch (e) { return d; } }
+  function put(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+
+  var speed = parseFloat(get('hramSpeed', '1')) || 1, cur = parseInt(get('hramTrack', '0'), 10) || 0;
+  if (cur < 0 || cur >= TRACKS.length) cur = 0;
+
+  function mark(box, test) {
+    [].forEach.call(box.children, function (b) { b.classList.toggle('on', test(b)); });
+  }
+  function load(i, play) {
+    cur = i; put('hramTrack', i);
+    a.src = TRACKS[i].f; a.playbackRate = speed;
+    now.textContent = TRACKS[i].t;
+    mark(list, function (b) { return b.dataset.i == i; });
+    if (play) a.play();
+  }
+
+  TRACKS.forEach(function (t, i) {
+    var li = document.createElement('li'), b = document.createElement('button'), dl = document.createElement('a');
+    b.dataset.i = i; b.innerHTML = t.t + '<small>' + t.d + '</small>';
+    b.onclick = function () { load(i, true); };
+    dl.href = t.f; dl.target = '_blank'; dl.rel = 'noopener'; dl.textContent = '⬇ Скачать'; dl.className = 'dl';
+    li.appendChild(b); li.appendChild(dl); list.appendChild(li);
+  });
+
+  [1, 1.2, 1.3, 1.5].forEach(function (v) {
+    var b = document.createElement('button'); b.textContent = v + '×'; b.dataset.v = v;
+    b.onclick = function () { speed = v; put('hramSpeed', v); a.playbackRate = v;
+      mark(spBox, function (x) { return x.dataset.v == v; }); };
+    spBox.appendChild(b);
+  });
+  mark(spBox, function (x) { return parseFloat(x.dataset.v) === speed; });
+  a.addEventListener('play', function () { a.playbackRate = speed; });
+
+  // после конца рассказа — следующий
+  a.addEventListener('ended', function () { if (cur + 1 < TRACKS.length) load(cur + 1, true); });
+
+  // таймер сна: через N минут пауза; «после рассказа» — не переходить к следующему
+  var stopAt = 0, afterTrack = false, tick = null;
+  function clearTimer() { stopAt = 0; afterTrack = false; clearInterval(tick); left.textContent = ''; }
+  function setTimer(min, b) {
+    clearTimer();
+    if (min === 0) { mark(tmBox, function () { return false; }); return; }
+    mark(tmBox, function (x) { return x === b; });
+    if (min === -1) { afterTrack = true; left.textContent = 'выключится после рассказа'; return; }
+    stopAt = Date.now() + min * 60000;
+    tick = setInterval(function () {
+      var s = Math.round((stopAt - Date.now()) / 1000);
+      if (s <= 0) { a.pause(); clearTimer(); mark(tmBox, function () { return false; }); return; }
+      left.textContent = 'осталось ' + Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2);
+    }, 1000);
+  }
+  [[15, '15 мин'], [30, '30 мин'], [60, '60 мин'], [-1, 'после рассказа'], [0, 'выкл']].forEach(function (p) {
+    var b = document.createElement('button'); b.textContent = p[1];
+    b.onclick = function () { setTimer(p[0], b); };
+    tmBox.appendChild(b);
+  });
+  // «после рассказа»: ended срабатывает раньше слушателя выше? — перехватываем в фазе захвата
+  a.addEventListener('ended', function (e) {
+    if (afterTrack) { e.stopImmediatePropagation(); clearTimer(); mark(tmBox, function () { return false; }); }
+  }, true);
+
+  load(cur, false);
+})();
+</script>
+</body>
+</html>
