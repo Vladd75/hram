@@ -15,12 +15,15 @@ body { margin: 0; background: var(--bg); color: var(--fg);
 main { max-width: 680px; margin: 0 auto; padding: 32px 20px 60px; }
 h1 { font-size: 28px; margin: 0 0 6px; }
 .top { position: relative; margin: 0 0 18px; border-radius: 14px; overflow: hidden; }
-.hero { width: 100%; height: 340px; object-fit: cover; object-position: center 45%; display: block; }
-.cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 60px 16px 16px; text-align: center; color: #fff;
-  background: linear-gradient(transparent, rgba(0,0,0,.8)); text-shadow: 0 1px 3px rgba(0,0,0,.7); }
-.cap h1 { margin: 0 0 4px; font-size: 28px; line-height: 1.2; }
-.cap .v { font-size: 20px; }
-.cap small { display: block; font-size: 15px; opacity: .9; margin-top: 4px; }
+.hero { width: 100%; height: 360px; object-fit: cover; object-position: center 45%; display: block; }
+.cap { position: absolute; left: 10px; right: 10px; bottom: 10px; padding: 12px 14px; text-align: center; color: #fff;
+  border-radius: 16px; border: 1px solid rgba(255,255,255,.45);
+  background: linear-gradient(135deg, rgba(40,30,15,.55), rgba(120,95,55,.35) 55%, rgba(40,30,15,.55));
+  -webkit-backdrop-filter: blur(10px) saturate(1.2); backdrop-filter: blur(10px) saturate(1.2);
+  box-shadow: 0 4px 16px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.3); text-shadow: 0 1px 2px rgba(0,0,0,.6); }
+.cap h1 { margin: 0; font-size: 25px; line-height: 1.2; }
+.cap .v { font-size: 19px; }
+.cap small { display: block; font-size: 14px; opacity: .92; margin-top: 3px; }
 .note { background: #fff6dd; color: #3b2f10; border: 1px solid #e6cf8a; border-radius: 12px; padding: 14px 16px; margin: 0 0 26px; font-size: 18px; }
 @media (prefers-color-scheme: dark) { .note { background: #2c2512; color: #ece0bd; border-color: #5a4a1c; } }
 .card { display: block; padding: 16px 18px; margin: 0 0 14px; border: 1px solid var(--line);
