@@ -16,14 +16,13 @@ main { max-width: 680px; margin: 0 auto; padding: 32px 20px 60px; }
 h1 { font-size: 28px; margin: 0 0 6px; }
 .top { position: relative; margin: 0 0 18px; border-radius: 14px; overflow: hidden; }
 .hero { width: 100%; height: 340px; object-fit: cover; object-position: center 75%; display: block; }
-.cap { position: absolute; left: 10px; right: 10px; bottom: 30px; padding: 5px 12px; text-align: left; color: #fff;
+.cap { position: absolute; left: 10px; right: 10px; bottom: 22px; padding: 5px 12px; color: #fff; display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
   border-radius: 14px; border: 1px solid rgba(255,255,255,.4); background: rgba(255,255,255,.05);
   -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.25); text-shadow: 0 1px 3px rgba(0,0,0,.85), 0 0 8px rgba(0,0,0,.5); }
-.cap h1 { margin: 0; font-size: clamp(18px, 5.2vw, 24px); line-height: 1.15; }
-.yar, .rg { position: absolute; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,.8), 0 0 8px rgba(0,0,0,.5); }
-.yar { top: 10px; right: 14px; font-size: 16px; }
-.rg { left: 0; right: 0; bottom: 7px; text-align: center; font-size: 14px; }
+.cap h1 { margin: 0; font-size: clamp(16px, 4.9vw, 22px); line-height: 1.15; }
+.cap .yar { font-size: 15px; white-space: nowrap;  }
+.rg { position: absolute; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,.8), 0 0 8px rgba(0,0,0,.5); left:0;right:0;bottom:6px;text-align:center;font-size:12px; }
 .note { background: #fff6dd; color: #3b2f10; border: 1px solid #e6cf8a; border-radius: 12px; padding: 14px 16px; margin: 0 0 26px; font-size: 18px; }
 @media (prefers-color-scheme: dark) { .note { background: #2c2512; color: #ece0bd; border-color: #5a4a1c; } }
 .card { display: block; padding: 16px 18px; margin: 0 0 14px; border: 1px solid var(--line);
@@ -40,8 +39,7 @@ footer a { color: var(--muted); }
 <main>
 <div class="top">
 <img class="hero" src="img/hram.jpg" alt="Храм Богоявления Господня в Ярлуково">
-<div class="yar">Ярлуково</div>
-<div class="cap"><h1>Храм Богоявления Господня</h1></div>
+<div class="cap"><h1>Храм Богоявления Господня</h1><span class="yar">Ярлуково</span></div>
 <div class="rg">Грязинский район · Липецкая епархия</div>
 </div>
 <p class="note"><b>Страничка для прихожан нашего храма.</b><br>Она пока в разработке и будет дополняться. Все ссылки работают.</p>
