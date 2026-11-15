@@ -4,34 +4,40 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Детям — аудиокниги</title>
+<link rel="icon" type="image/png" href="img/favicon-32.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#8a5a2b">
 <style>
-:root { --bg: #faf8f4; --fg: #1f1c17; --muted: #7a7266; --accent: #8a5a2b; --line: #e4ddd0; }
+:root { --bg: #faf8f4; --fg: #1f1c17; --muted: #5c5448; --accent: #8a5a2b; --line: #e4ddd0; }
 @media (prefers-color-scheme: dark) {
-  :root { --bg: #171512; --fg: #ece6da; --muted: #a89d8a; --accent: #d6a35c; --line: #37322a; }
+  :root { --bg: #171512; --fg: #ece6da; --muted: #c2b8a6; --accent: #d6a35c; --line: #37322a; }
 }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--fg);
   font-family: -apple-system, "Segoe UI", Roboto, system-ui, sans-serif; font-size: 19px; line-height: 1.5; }
 main { max-width: 680px; margin: 0 auto; padding: 32px 20px 60px; }
-a.back { color: var(--accent); text-decoration: none; font-size: 16px; }
+a.back { display: inline-block; padding: 10px 0; color: var(--accent); text-decoration: none; font-size: 18px; }
 h1 { font-size: 24px; margin: 14px 0 4px; }
-.sub { color: var(--muted); font-size: 15px; margin: 0 0 20px; }
-.now { font-size: 17px; font-weight: 600; margin: 0 0 8px; }
+.sub { color: var(--muted); font-size: 17px; margin: 0 0 20px; }
+.now { font-size: 19px; font-weight: 600; margin: 0 0 8px; }
 audio { width: 100%; margin: 0 0 12px; }
 .row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0 0 10px; }
-.row .lbl { color: var(--muted); font-size: 14px; min-width: 74px; }
-button { padding: 6px 14px; border-radius: 8px; font-size: 15px; border: 1px solid var(--line);
+.row .lbl { flex-basis: 100%; color: var(--muted); font-size: 16px; }
+button { min-height: 48px; padding: 8px 16px; border-radius: 10px; font-size: 17px; border: 1px solid var(--line);
   background: transparent; color: var(--accent); cursor: pointer; }
 button.on { background: var(--accent); color: var(--bg); }
-#left { color: var(--muted); font-size: 14px; }
+#left { color: var(--muted); font-size: 16px; }
+button.big { width: 100%; min-height: 64px; margin: 0 0 14px; font-size: 24px; font-weight: 700;
+  background: var(--accent); color: var(--bg); border: none; border-radius: 14px; }
 ol { list-style: none; padding: 0; margin: 22px 0 0; }
 ol li { margin: 0 0 10px; }
-.dl { display: inline-block; margin: 4px 0 0 4px; font-size: 14px; color: var(--accent); text-decoration: none; }
-ol button { width: 100%; text-align: left; padding: 12px 14px; font-size: 17px; color: var(--fg); }
+.dl { display: inline-block; margin: 6px 0 0; padding: 10px 14px; min-height: 44px; font-size: 17px; color: var(--accent); text-decoration: none; border: 1px solid var(--line); border-radius: 10px; }
+ol button { width: 100%; text-align: left; padding: 12px 14px; font-size: 18px; color: var(--fg); }
 ol button.on { color: var(--bg); }
-ol small { display: block; color: var(--muted); font-size: 13px; }
+ol small { display: block; color: var(--muted); font-size: 15px; }
 ol button.on small { color: var(--bg); opacity: .85; }
-footer { margin-top: 36px; color: var(--muted); font-size: 12px; text-align: center; }
+footer { margin-top: 36px; color: var(--muted); font-size: 14px; text-align: center; }
 </style>
 </head>
 <body>
@@ -41,6 +47,7 @@ footer { margin-top: 36px; color: var(--muted); font-size: 12px; text-align: cen
 <p class="sub">Серия «Добрым детям»: жития и сказания о святынях</p>
 
 <p class="now" id="now"></p>
+<button class="big" id="pp">▶ Слушать</button>
 <audio id="a" controls preload="none"></audio>
 
 <div class="row"><span class="lbl">Скорость</span><span id="sp"></span></div>
@@ -76,7 +83,7 @@ footer { margin-top: 36px; color: var(--muted); font-size: 12px; text-align: cen
     cur = i; put('hramTrack2', i);
     a.src = TRACKS[i].f; a.playbackRate = speed;
     now.textContent = TRACKS[i].t;
-    mark(list, function (b) { return b.dataset.i == i; });
+    [].forEach.call(list.querySelectorAll('button'), function (b) { b.classList.toggle('on', b.dataset.i == i); });
     if (play) a.play();
   }
 
@@ -124,6 +131,12 @@ footer { margin-top: 36px; color: var(--muted); font-size: 12px; text-align: cen
   a.addEventListener('ended', function (e) {
     if (afterTrack) { e.stopImmediatePropagation(); clearTimer(); mark(tmBox, function () { return false; }); }
   }, true);
+
+  // большая кнопка: пожилым и детям проще, чем значок встроенного плеера
+  var pp = document.getElementById('pp');
+  pp.onclick = function () { if (a.paused) a.play(); else a.pause(); };
+  function ppText() { pp.textContent = a.paused ? '▶ Слушать' : '⏸ Пауза'; }
+  a.addEventListener('play', ppText); a.addEventListener('pause', ppText);
 
   load(cur, false);
 })();

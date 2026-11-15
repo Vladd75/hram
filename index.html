@@ -4,10 +4,23 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Храм Богоявления Господня</title>
+<link rel="icon" type="image/png" href="img/favicon-32.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#8a5a2b">
+<meta name="description" content="Страничка для прихожан храма Богоявления Господня в Ярлуково: проповеди, Библия, толкования, молитвы, аудиокниги для детей.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Храм Богоявления Господня в Ярлуково">
+<meta property="og:description" content="Страничка для прихожан храма Богоявления Господня в Ярлуково: проповеди, Библия, толкования, молитвы, аудиокниги для детей.">
+<meta property="og:url" content="https://vladd75.github.io/hram/">
+<meta property="og:image" content="https://vladd75.github.io/hram/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <style>
-:root { --bg: #faf8f4; --fg: #1f1c17; --muted: #7a7266; --accent: #8a5a2b; --line: #e4ddd0; }
+:root { --bg: #faf8f4; --fg: #1f1c17; --muted: #5c5448; --accent: #8a5a2b; --line: #e4ddd0; }
 @media (prefers-color-scheme: dark) {
-  :root { --bg: #171512; --fg: #ece6da; --muted: #a89d8a; --accent: #d6a35c; --line: #37322a; }
+  :root { --bg: #171512; --fg: #ece6da; --muted: #c2b8a6; --accent: #d6a35c; --line: #37322a; }
 }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--fg);
@@ -28,11 +41,14 @@ h1 { font-size: 28px; margin: 0 0 6px; }
 .card { display: block; padding: 16px 18px; margin: 0 0 14px; border: 1px solid var(--line);
   border-radius: 12px; text-decoration: none; color: var(--fg); }
 .card b { display: block; font-size: 20px; color: var(--accent); margin-bottom: 2px; }
-.card span { font-size: 15px; color: var(--muted); }
-h2 { font-size: 15px; font-weight: 600; color: var(--muted); text-transform: uppercase;
+.card span { display: block; font-size: 17px; line-height: 1.35; color: var(--muted); }
+h2 { font-size: 16px; font-weight: 600; color: var(--muted); text-transform: uppercase;
   letter-spacing: .04em; margin: 28px 0 10px; }
-footer { margin-top: 36px; color: var(--muted); font-size: 12px; text-align: center; }
+footer { margin-top: 36px; color: var(--muted); font-size: 14px; text-align: center; }
 footer a { color: var(--muted); }
+details.how { margin: 28px 0 0; border: 1px solid var(--line); border-radius: 12px; padding: 0 18px; }
+details.how summary { padding: 16px 0; font-size: 19px; color: var(--accent); font-weight: 600; cursor: pointer; }
+details.how p { margin: 0 0 14px; font-size: 17px; }
 </style>
 </head>
 <body>
@@ -57,7 +73,13 @@ footer a { color: var(--muted); }
 <a class="card" href="detyam.html"><b>🎧 Аудиокниги для детей</b><span>Житие мученика Трифона и другие рассказы</span></a>
 
 <h2>Храм в сети</h2>
-<a class="card" href="https://www.instagram.com/hram.bogoyavlenskiy/"><b>📷 Instagram храма</b><span>Для тех, кто у нас бывает</span></a>
+<a class="card" href="https://www.instagram.com/hram.bogoyavlenskiy/"><b>📷 Instagram храма</b><span>Открывается только через VPN</span></a>
+
+<details class="how"><summary>📱 Значок храма на экран телефона</summary>
+<p>Сайт можно открыть одним нажатием, как приложение.</p>
+<p><b>Android</b> (Chrome, Яндекс): нажмите меню <b>⋮</b> или <b>≡</b> → «Добавить на главный экран» или «Добавить ярлык».</p>
+<p><b>iPhone</b> (Safari): нажмите «Поделиться» (квадрат со стрелкой) → «На экран „Домой“».</p>
+</details>
 
 <footer>Материалы публикуются в ознакомительных целях.</footer>
 </main>
