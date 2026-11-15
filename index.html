@@ -14,8 +14,15 @@ body { margin: 0; background: var(--bg); color: var(--fg);
   font-family: -apple-system, "Segoe UI", Roboto, system-ui, sans-serif; font-size: 19px; line-height: 1.5; }
 main { max-width: 680px; margin: 0 auto; padding: 32px 20px 60px; }
 h1 { font-size: 28px; margin: 0 0 6px; }
-.hero { width: 100%; height: 260px; object-fit: cover; object-position: center 45%; border-radius: 14px; margin: 0 0 18px; display: block; }
-.sub { color: var(--muted); font-size: 16px; margin: 0 0 28px; }
+.top { position: relative; margin: 0 0 18px; border-radius: 14px; overflow: hidden; }
+.hero { width: 100%; height: 340px; object-fit: cover; object-position: center 45%; display: block; }
+.cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 60px 16px 16px; text-align: center; color: #fff;
+  background: linear-gradient(transparent, rgba(0,0,0,.8)); text-shadow: 0 1px 3px rgba(0,0,0,.7); }
+.cap h1 { margin: 0 0 4px; font-size: 28px; line-height: 1.2; }
+.cap .v { font-size: 20px; }
+.cap small { display: block; font-size: 15px; opacity: .9; margin-top: 4px; }
+.note { background: #fff6dd; color: #3b2f10; border: 1px solid #e6cf8a; border-radius: 12px; padding: 14px 16px; margin: 0 0 26px; font-size: 18px; }
+@media (prefers-color-scheme: dark) { .note { background: #2c2512; color: #ece0bd; border-color: #5a4a1c; } }
 .card { display: block; padding: 16px 18px; margin: 0 0 14px; border: 1px solid var(--line);
   border-radius: 12px; text-decoration: none; color: var(--fg); }
 .card b { display: block; font-size: 20px; color: var(--accent); margin-bottom: 2px; }
@@ -28,9 +35,12 @@ footer a { color: var(--muted); }
 </head>
 <body>
 <main>
-<img class="hero" src="img/hram.jpg" alt="Храм Богоявления Господня, Ярлуково">
-<h1>Храм Богоявления Господня</h1>
-<p class="sub">Ярлуково · слушать, читать, быть на связи</p>
+<div class="top">
+<img class="hero" src="img/hram.jpg" alt="Храм Богоявления Господня в Ярлуково">
+<div class="cap"><h1>Храм Богоявления Господня</h1><div class="v">в Ярлуково</div>
+<small>Грязинский район · Липецкая епархия</small></div>
+</div>
+<p class="note"><b>Страничка для прихожан нашего храма.</b><br>Она пока в разработке и будет дополняться. Все ссылки работают.</p>
 
 <h2>Слово</h2>
 <a class="card" href="https://vladd75.github.io/propovedi/"><b>🎙 Проповеди</b><span>Беседы с записью и текстом</span></a>
